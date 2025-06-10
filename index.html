@@ -1,80 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Telegram Web App SPA</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    /* Стили для экранов */
-    .screen {
-      display: none;
-      padding: 20px;
-    }
-    .screen.active {
-      display: block;
-    }
-    button {
-      margin-top: 10px;
-      padding: 8px 16px;
-      background: #0088cc;
-      color: white;
-      border: none;
-      border-radius: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-  <!-- Главный экран -->
-  <div id="main" class="screen active">
-    <h1>Добро пожаловать! 👋</h1>
-    <p>Это главный экран вашего бота.</p>
-    <button onclick="showScreen('profile')">Профиль</button>
-    <button onclick="showScreen('settings')">Настройки</button>
-  </div>
-
-  <!-- Экран профиля -->
-  <div id="profile" class="screen">
-    <h1>Ваш профиль</h1>
-    <p>Имя: <span id="user-name">...</span></p>
-    <button onclick="showScreen('main')">Назад</button>
-  </div>
-
-  <!-- Экран настроек -->
-  <div id="settings" class="screen">
-    <h1>⚙️ Настройки</h1>
-    <p>Тут можно что-то настроить...</p>
-    <button onclick="showScreen('main')">Назад</button>
-  </div>
-
-  <script>
-    // Функция переключения экранов
-    function showScreen(id) {
-      // Скрываем все экраны
-      document.querySelectorAll('.screen').forEach(el => {
-        el.classList.remove('active');
-      });
-      // Показываем выбранный
-      document.getElementById(id).classList.add('active');
-      
-      // Дополнительные действия при переключении
-      if (id === 'profile') {
-        loadUserData(); // Пример: загружаем данные для профиля
-      }
-    }
-
-    // Пример работы с Telegram WebApp API
-    function loadUserData() {
-      const user = Telegram.WebApp.initDataUnsafe.user;
-      if (user) {
-        document.getElementById('user-name').textContent = 
-          `${user.first_name} ${user.last_name || ''}`;
-      }
-    }
-
-    // Инициализация TWA
-    Telegram.WebApp.ready();
-    Telegram.WebApp.expand(); // Раскрываем на весь экран
-  </script>
+    <div class="Main">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, temporibus ad mollitia hic vel repudiandae sit labore quaerat voluptatum id quisquam deleniti officia dicta harum sapiente, praesentium recusandae quas et?
+    </div>
 </body>
 </html>
