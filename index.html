@@ -34,11 +34,26 @@
         .color-row {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 0;
             padding: 10px;
             background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            box-shadow: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .color-row:last-child {
+            border-bottom: none;
+        }
+
+        .color-row:first-child {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .color-row:last-child {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
         }
 
         .color-picker {
