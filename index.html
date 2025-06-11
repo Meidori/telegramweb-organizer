@@ -31,9 +31,39 @@
             padding: 16px;
         }
 
-        .toolbar.tabbar {
-            position: fixed;
-            bottom: 5px;
+        .color-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-picker {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 15px;
+            cursor: pointer;
+            border: 2px solid #eee;
+        }
+
+        .color-input {
+            flex-grow: 1;
+        }
+
+        .color-input input {
+            width: 100%;
+            border: none;
+            padding: 8px;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .color-input input:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -69,7 +99,7 @@
                 </div>
 
                 <div class="tabs">
-                    <!-- Settings -->
+                    <!-- Calendar -->
                     <div id="tab-calendar" class="tab tab-active">
                         <div class="page-content">
                             <div class="block">
@@ -81,7 +111,37 @@
                     <div id="tab-settings" class="tab">
                         <div class="page-content">
                             <div class="block">
-                                <p>xd</p>
+                                <!-- color picker - category name -->
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #ffffff;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #aa69fd;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #fd69fd;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #2169fd;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #aaa123;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
