@@ -1,111 +1,122 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <title>Organizer</title>
     <!-- CSS Framework7 -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/framework7@latest/css/framework7.bundle.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@latest/css/framework7.bundle.min.css" />
     <!-- Icons Framework7 -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/framework7-icons@latest/css/framework7-icons.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7-icons@latest/css/framework7-icons.css" />
 
     <style>
-      .page-content {
-        padding: 16px;
-      }
+        /* font Abel */
+        @import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
+
+        .navbar {
+            font-family: "Abel", sans-serif;
+            font-weight: 400;
+            font-size: 34px;
+            line-height: 41px;
+            letter-spacing: 0.4px;
+            background-color: #f8f9fa;
+            /* Фон для наглядности */
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Тень для красоты */
+        }
+
+        .page-content {
+            padding: 16px;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="app">
-      <div class="view view-main">
-        <!-- Main page with tabs -->
-        <div class="page page-with-tabs">
-          <div class="navbar">
-            <div class="navbar-inner sliding">
-              <!-- When the app is opened, the calendar tab is displayed, which is why the navbar has this name. Then the name changes dynamically when switching between tabs. -->
-              <div class="title">Календарь</div>
-            </div>
-          </div>
-
-          <!-- TabBar -->
-          <div class="toolbar tabbar tabbar-labels toolbar-bottom">
-            <div class="toolbar-inner">
-              <a href="#tab-calendar" class="tab-link tab-link-active">
-                <i class="icon f7-icons">calendar</i>
-                <span class="tabbar-label">Календарь</span>
-              </a>
-              <a href="#tab-settings" class="tab-link">
-                <i class="icon f7-icons">gear</i>
-                <span class="tabbar-label">Настройки</span>
-              </a>
-              <a href="#tab-stats" class="tab-link">
-                <i class="icon f7-icons">graph_square</i>
-                <span class="tabbar-label">Статистика</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="tabs">
-            <!-- Settings -->
-            <div id="tab-calendar" class="tab tab-active">
-              <div class="page-content">
-                <div class="block">
-                  <p>xd</p>
+        <div class="view view-main">
+            <!-- Main page with tabs -->
+            <div class="page page-with-tabs">
+                <div class="navbar">
+                    <div class="navbar-inner sliding">
+                        <!-- When the app is opened, the calendar tab is displayed, which is why the navbar has this name. Then the name changes dynamically when switching between tabs. -->
+                        <div class="title">Календарь</div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <!-- Settings -->
-            <div id="tab-settings" class="tab">
-              <div class="page-content">
-                <div class="block">
-                  <p>xd</p>
-                </div>
-              </div>
-            </div>
 
-            <!-- Statistic -->
-            <div id="tab-stats" class="tab">
-              <div class="page-content">
-                <div class="block">
-                  <p>xd</p>
+                <!-- TabBar -->
+                <div class="toolbar tabbar tabbar-labels toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <a href="#tab-calendar" class="tab-link tab-link-active">
+                            <i class="icon f7-icons">calendar</i>
+                            <span class="tabbar-label">Календарь</span>
+                        </a>
+                        <a href="#tab-settings" class="tab-link">
+                            <i class="icon f7-icons">gear</i>
+                            <span class="tabbar-label">Настройки</span>
+                        </a>
+                        <a href="#tab-stats" class="tab-link">
+                            <i class="icon f7-icons">graph_square</i>
+                            <span class="tabbar-label">Статистика</span>
+                        </a>
+                    </div>
                 </div>
-              </div>
+
+                <div class="tabs">
+                    <!-- Settings -->
+                    <div id="tab-calendar" class="tab tab-active">
+                        <div class="page-content">
+                            <div class="block">
+                                <p>xd</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Settings -->
+                    <div id="tab-settings" class="tab">
+                        <div class="page-content">
+                            <div class="block">
+                                <p>xd</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistic -->
+                    <div id="tab-stats" class="tab">
+                        <div class="page-content">
+                            <div class="block">
+                                <p>xd</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/framework7@latest/js/framework7.bundle.min.js"></script>
     <script>
-      const app = new Framework7({
-        root: "#app",
-        theme: "auto",
-      });
+        const app = new Framework7({
+            root: "#app",
+            theme: "auto",
+        });
 
-      // Dynamic change navbar
-      app.on("tabShow", (tab) => {
-        const navbarTitle = document.querySelector(".navbar .title");
+        // Dynamic change navbar
+        app.on("tabShow", (tab) => {
+            const navbarTitle = document.querySelector(".navbar .title");
 
-        if (tab.id === "tab-settings") {
-          navbarTitle.textContent = "Настройки";
-        } else if (tab.id === "tab-stats") {
-          navbarTitle.textContent = "Статистика";
-        } else if (tab.id === "tab-calendar") {
-          navbarTitle.textContent = "Календарь";
-        }
-      });
+            if (tab.id === "tab-settings") {
+                navbarTitle.textContent = "Настройки";
+            }
+            else if (tab.id === "tab-stats") {
+                navbarTitle.textContent = "Статистика";
+            }
+            else if (tab.id === "tab-calendar") {
+                navbarTitle.textContent = "Календарь";
+            }
+        });
     </script>
-  </body>
+</body>
+
 </html>
