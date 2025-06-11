@@ -15,6 +15,24 @@
         /* font Abel */
         @import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+
+        .tabs {
+            height: calc(100vh - 45px - 56px); /* screen height - (navbar+tabbar)*/
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .page-with-tabs {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
         .navbar {
             font-family: "Abel", sans-serif;
             font-size: 34px;
@@ -32,8 +50,8 @@
         }
 
         .page-content {
-            margin-top: 45px;
-            padding: 16px;
+            flex-grow: 1;
+            overflow: hidden;
         }
 
         .color-row {
@@ -151,6 +169,36 @@
                                 </div>
                                 <div class="color-row">
                                     <div class="color-picker" style="background-color: #2169fd;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #aaa123;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #aaa123;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #aaa123;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #aaa123;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #aaa123;"></div>
                                     <div class="color-input">
                                         <input type="text" placeholder="Введите название">
                                     </div>
