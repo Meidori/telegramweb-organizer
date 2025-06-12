@@ -1,17 +1,17 @@
-from flask import Flask, render_template  
+from flask import Flask, render_template, request, jsonify
 from flask_mysqldb import MySQL
 import os
   
 app = Flask(__name__, template_folder='.')  
 
-mysqluser = os.environ["mysqluser"]
-mysqlpassword = os.environ["mysqlpassword"]
-mysqldatabase = os.environ["mysqldatabase"]
+mysql_user = os.environ["mysql_user"]
+mysql_password = os.environ["mysql_password"]
+mysql_database = os.environ["mysql_database"]
 
 # Required
-app.config["MYSQL_USER"] = mysqluser
-app.config["MYSQL_PASSWORD"] = mysqlpassword
-app.config["MYSQL_DB"] = mysqldatabase
+app.config["MYSQL_USER"] = mysql_user
+app.config["MYSQL_PASSWORD"] = mysql_password
+app.config["MYSQL_DB"] = mysql_database
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
   
 @app.route("/")  
