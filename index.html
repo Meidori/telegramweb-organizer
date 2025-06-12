@@ -196,31 +196,30 @@
         </div>
     </div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        const tg = window.Telegram.WebApp;
-        const telegram_id = tg.initDataUnsafe?.user?.id;
-        
-        if (!telegram_id) {
-            tg.showAlert("Ошибка: ID пользователя не найден");
-            throw new Error("Telegram user ID not found");
-        }
 
-        fetch('/save_user', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ telegram_id: telegram_id })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) tg.showAlert("Успешно!");
-            else tg.showAlert("Ошибка: " + (data.error || "неизвестная ошибка"));
-        })
-        .catch(error => {
-            tg.showAlert("Ошибка сети: " + error.message);
-            console.error("Fetch error:", error);
-        });
-    </script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <body>
+        <div id="output"></div>
+
+        <script>
+            const tg = window.Telegram.WebApp;
+            const telegram_id = tg.initDataUnsafe?.user?.id;
+
+            fetch('/save_user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegram_id: telegram_id })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('output').textContent = 'Ошибка: ' + error;
+            });
+        </script>
+    </body>
+
 
     <script src="https://cdn.jsdelivr.net/npm/framework7@latest/js/framework7.bundle.min.js"></script>
     <script>
