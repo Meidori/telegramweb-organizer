@@ -7,11 +7,13 @@ app = Flask(__name__, template_folder='.')
 mysql_user = os.environ["MYSQL_USER"]
 mysql_password = os.environ["MYSQL_PASSWORD"]
 mysql_database = os.environ["MYSQL_DATABASE"]
+mysql_host = os.environ["MYSQL_HOST"]
 
 # Required
 app.config["MYSQL_USER"] = mysql_user
 app.config["MYSQL_PASSWORD"] = mysql_password
 app.config["MYSQL_DB"] = mysql_database
+app.config["MYSQL_HOST"] = mysql_host
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 mysql = MySQL(app)
