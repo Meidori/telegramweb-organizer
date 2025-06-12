@@ -25,7 +25,7 @@ def save_user():
         telegram_id = data['telegram_id'] 
         
         cursor = mysql.connection.cursor()
-        cursor.execute("INSERT INTO User (telegram_id) VALUES (%s)", (telegram_id,))
+        cursor.execute("INSERT INTO `User` (telegram_id) VALUES (%s)", (telegram_id,))
         mysql.connection.commit()
         
         return jsonify(success=True)
