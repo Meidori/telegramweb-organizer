@@ -13,6 +13,8 @@ app.config["MYSQL_USER"] = mysql_user
 app.config["MYSQL_PASSWORD"] = mysql_password
 app.config["MYSQL_DB"] = mysql_database
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
+
+mysql = MySQL(app)
   
 @app.route("/")  
 def web():  
@@ -20,6 +22,7 @@ def web():
 
 @app.route('/save_user', methods=['POST'])
 def save_user():
+    cursor = None
     try:
         data = request.get_json()
         telegram_id = data['telegram_id'] 
@@ -35,7 +38,8 @@ def save_user():
     except Exception as e:
         return jsonify(success=False, error=str(e)), 500
     finally:
-        cursor.close()
+        if cursor:
+            cursor.close()
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port='80')  
