@@ -39,5 +39,29 @@ def save_user():
     except Exception as e:
         return jsonify(success=False, error=str(e)), 500
 
+
+@app.route('/get_categories', methods=['GET'])
+def get_categories():
+    try:
+        telegram_id = request.args.get('telegram_id')
+        if not telegram_id:
+            return jsonify(success=False, error="telegram_id is required"), 400
+            
+        cursor = mysql.connection.cursor()
+        cursor.execute("""
+            SELECT c.id, c.name, c.color_hex 
+            FROM Category c
+            JOIN User u ON c.user_id = u.id
+            WHERE u.telegram_id = %s
+            ORDER BY c.id
+        """, (telegram_id,))
+        categories = cursor.fetchall()
+        
+        return jsonify(success=True, categories=categories)
+    
+    except Exception as e:
+        return jsonify(success=False, error=str(e)), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port='80')  
