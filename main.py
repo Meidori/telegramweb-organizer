@@ -4,9 +4,9 @@ import os
   
 app = Flask(__name__, template_folder='.')  
 
-mysql_user = os.environ["mysql_user"]
-mysql_password = os.environ["mysql_password"]
-mysql_database = os.environ["mysql_database"]
+mysql_user = os.environ["MYSQL_USER"]
+mysql_password = os.environ["MYSQL_PASSWORD"]
+mysql_database = os.environ["MYSQL_DATABASE"]
 
 # Required
 app.config["MYSQL_USER"] = mysql_user
