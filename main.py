@@ -1,12 +1,17 @@
 from flask import Flask, render_template  
 from flask_mysqldb import MySQL
+import os
   
 app = Flask(__name__, template_folder='.')  
 
+mysqluser = os.environ["mysqluser"]
+mysqlpassword = os.environ["mysqlpassword"]
+mysqldatabase = os.environ["mysqldatabase"]
+
 # Required
-app.config["MYSQL_USER"] = "mysqluser"
-app.config["MYSQL_PASSWORD"] = "mysqlpassword"
-app.config["MYSQL_DB"] = "mysqldatabase"
+app.config["MYSQL_USER"] = mysqluser
+app.config["MYSQL_PASSWORD"] = mysqlpassword
+app.config["MYSQL_DB"] = mysqldatabase
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
   
 @app.route("/")  
