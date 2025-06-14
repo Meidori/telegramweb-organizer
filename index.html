@@ -247,23 +247,6 @@
                 console.error('Error loading categories:', error);
             }
         }
-        
-        function renderCategories(categories) {
-            const container = document.getElementById('categories-container');
-            container.innerHTML = '';
-            
-            categories.forEach(category => {
-                const categoryHtml = `
-                    <div class="color-row" data-id="${category.id}">
-                        <div class="color-picker" style="background-color: ${category.color_hex};"></div>
-                        <div class="color-input">
-                            <input type="text" value="${category.name}" placeholder="Введите название">
-                        </div>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', categoryHtml);
-            });
-        }
     });
 
 
@@ -281,9 +264,7 @@
                 navbarTitle.textContent = "Календарь";
             }
         });
-    </script>
 
-    <script>
         function renderCategories(categories) {
             const container = document.getElementById('categories-container');
             container.innerHTML = '';
