@@ -348,6 +348,24 @@
                 console.error('Error updating category:', error);
             }
         }
+
+        function rgbToHex(rgb) {
+            if (!rgb) return null;
+            
+            if (rgb.startsWith('#')) return rgb;
+            
+            const match = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+            if (!match) return null;
+            
+            const r = parseInt(match[1]);
+            const g = parseInt(match[2]);
+            const b = parseInt(match[3]);
+            
+            return '#' + [r, g, b].map(x => {
+                const hex = x.toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            }).join('');
+        }
     </script>
 </body>
 
