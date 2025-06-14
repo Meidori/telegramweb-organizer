@@ -84,24 +84,5 @@ def update_category():
         return jsonify(success=False, error=str(e)), 500
 
 
-@app.route('/update_category_color', methods=['POST'])
-def update_category_color():
-    try:
-        data = request.get_json()
-        category_id = data['category_id']
-        color_hex = data['color_hex']
-        
-        cursor = mysql.connection.cursor()
-        cursor.execute("UPDATE Category SET color_hex = %s WHERE id = %s", (color_hex, category_id))
-        mysql.connection.commit()
-        
-        return jsonify(success=True)
-    
-    except KeyError:
-        return jsonify(success=False, error="category_id and color_hex are required"), 400
-    except Exception as e:
-        return jsonify(success=False, error=str(e)), 500
-        
-
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port='80')  
