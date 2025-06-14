@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 
     <title>Organizer</title>
     <!-- CSS Framework7 -->
@@ -15,14 +16,16 @@
         /* font Abel */
         @import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
 
-        html, body {
+        html,
+        body {
             height: 100%;
             overflow: hidden;
             touch-action: pan-y;
         }
 
         .tabs {
-            height: calc(100vh - 45px - 56px); /* screen height - (navbar+tabbar)*/
+            height: calc(100vh - 45px - 56px);
+            /* screen height - (navbar+tabbar)*/
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -101,6 +104,101 @@
 
         .color-input input:focus {
             outline: none;
+        }
+
+        /* Color Picker Modal */
+        .color-picker-modal {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            padding: 16px;
+            padding-bottom: calc(16px + env(safe-area-inset-bottom));
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .color-picker-modal.active {
+            transform: translateY(0);
+        }
+
+        .color-picker-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .current-color-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin: 0 auto 20px;
+            border: 1px solid #eee;
+        }
+
+        .color-options {
+            margin-bottom: 20px;
+        }
+
+        .color-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: #000;
+        }
+
+        .custom-color {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+
+        .custom-color input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .custom-color i {
+            font-size: 20px;
+            color: #888;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .actions .button {
+            flex: 1;
+            margin: 0 5px;
         }
     </style>
 </head>
@@ -196,7 +294,35 @@
         </div>
     </div>
 
-    <input type="color" id="color-picker" style="display: none;">   
+    <!-- Color Picker Modal -->
+    <div id="color-picker-modal" class="color-picker-modal">
+        <div class="color-picker-content">
+            <div class="current-color-box" id="current-color-box"></div>
+
+            <div class="color-options">
+                <div class="color-row">
+                    <div class="color-option" style="background-color: #FF5252;" data-color="#FF5252"></div>
+                    <div class="color-option" style="background-color: #FFD740;" data-color="#FFD740"></div>
+                    <div class="color-option" style="background-color: #69F0AE;" data-color="#69F0AE"></div>
+                    <div class="color-option" style="background-color: #40C4FF;" data-color="#40C4FF"></div>
+                </div>
+                <div class="color-row">
+                    <div class="color-option" style="background-color: #536DFE;" data-color="#536DFE"></div>
+                    <div class="color-option" style="background-color: #7C4DFF;" data-color="#7C4DFF"></div>
+                    <div class="color-option" style="background-color: #FF4081;" data-color="#FF4081"></div>
+                    <div class="color-option custom-color">
+                        <input type="color" id="custom-color-input">
+                        <i class="icon f7-icons">plus</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="#" class="button button-fill color-picker-cancel">Отмена</a>
+                <a href="#" class="button button-fill color-picker-ok">OK</a>
+            </div>
+        </div>
+    </div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
@@ -208,12 +334,12 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ telegram_id: telegram_id })
         })
-        .then(data => {
-            console.log('User saved:', data);
-        })
-        .catch(error => {
-            console.error('Error saving user:', error);
-        });        
+            .then(data => {
+                console.log('User saved:', data);
+            })
+            .catch(error => {
+                console.error('Error saving user:', error);
+            });        
     </script>
 
 
@@ -224,31 +350,31 @@
             theme: "auto",
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-        // load categories when open settings-tab
-        app.on('tabShow', async (tab) => {
-            if (tab.id === "tab-settings") {
-                await loadCategories();
+        document.addEventListener('DOMContentLoaded', function () {
+            // load categories when open settings-tab
+            app.on('tabShow', async (tab) => {
+                if (tab.id === "tab-settings") {
+                    await loadCategories();
+                }
+            });
+
+            async function loadCategories() {
+                try {
+                    const response = await fetch(`/get_categories?telegram_id=${telegram_id}`);
+                    const data = await response.json();
+
+                    if (data.success) {
+                        renderCategories(data.categories);
+                    }
+                    else {
+                        console.error('Error loading categories:', data.error);
+                    }
+                }
+                catch (error) {
+                    console.error('Error loading categories:', error);
+                }
             }
         });
-        
-        async function loadCategories() {
-            try {
-                const response = await fetch(`/get_categories?telegram_id=${telegram_id}`);
-                const data = await response.json();
-                
-                if (data.success) {
-                    renderCategories(data.categories);
-                }
-                else {
-                    console.error('Error loading categories:', data.error);
-                }
-            }
-            catch (error) {
-                console.error('Error loading categories:', error);
-            }
-        }
-    });
 
         // Dynamic change navbar
         app.on("tabShow", (tab) => {
@@ -268,41 +394,41 @@
         function renderCategories(categories) {
             const container = document.getElementById('categories-container');
             container.innerHTML = '';
-            
+
             categories.forEach(category => {
                 const categoryHtml = `
-                    <div class="color-row" data-id="${category.id}">
-                        <div class="color-picker" style="background-color: ${category.color_hex};"></div>
-                        <div class="color-input">
-                            <input type="text" value="${category.name}" placeholder="Введите название">
-                        </div>
-                    </div>
-                `;
+            <div class="color-row" data-id="${category.id}">
+                <div class="color-picker" style="background-color: ${category.color_hex || '#ffffff'};"></div>
+                <div class="color-input">
+                    <input type="text" value="${category.name}" placeholder="Введите название">
+                </div>
+            </div>
+        `;
                 container.insertAdjacentHTML('beforeend', categoryHtml);
-                
+
                 const input = container.lastElementChild.querySelector('input');
-                input.addEventListener('change', function() {
+                input.addEventListener('change', function () {
                     updateCategory(category.id, this.value);
                 });
             });
         }
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (e.target.classList.contains('color-picker')) {
                 const colorPicker = document.getElementById('color-picker');
                 const currentColor = e.target.style.backgroundColor;
-                
+
                 colorPicker.value = rgbToHex(currentColor) || '#ffffff';
-                
+
                 colorPicker.click();
-                
-                colorPicker.oninput = function() {
+
+                colorPicker.oninput = function () {
                     const newColor = this.value;
                     e.target.style.backgroundColor = newColor;
-                    
+
                     const categoryRow = e.target.closest('.color-row');
                     const categoryId = categoryRow.dataset.id;
-                    
+
                     updateCategoryColor(categoryId, newColor);
                 };
             }
@@ -319,7 +445,7 @@
                         telegram_id: telegram_id
                     })
                 });
-                
+
                 const data = await response.json();
                 if (!data.success) {
                     console.error('Error updating category color:', data.error);
@@ -341,7 +467,7 @@
                         telegram_id: telegram_id
                     })
                 });
-                
+
                 const data = await response.json();
             }
             catch (error) {
@@ -351,20 +477,99 @@
 
         function rgbToHex(rgb) {
             if (!rgb) return null;
-            
+
             if (rgb.startsWith('#')) return rgb;
-            
+
             const match = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
             if (!match) return null;
-            
+
             const r = parseInt(match[1]);
             const g = parseInt(match[2]);
             const b = parseInt(match[3]);
-            
+
             return '#' + [r, g, b].map(x => {
                 const hex = x.toString(16);
                 return hex.length === 1 ? '0' + hex : hex;
             }).join('');
+        }
+
+        let currentColorPicker = null;
+        let selectedColor = '#ffffff';
+
+        // click on circles
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('color-picker')) {
+                currentColorPicker = e.target;
+                selectedColor = e.target.style.backgroundColor || '#ffffff';
+
+                const modal = document.getElementById('color-picker-modal');
+                const currentColorBox = document.getElementById('current-color-box');
+
+                currentColorBox.style.backgroundColor = selectedColor;
+
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                modal.style.display = 'block';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+            }
+
+            if (e.target.classList.contains('color-option') && !e.target.classList.contains('custom-color')) {
+                selectedColor = e.target.dataset.color;
+                document.getElementById('current-color-box').style.backgroundColor = selectedColor;
+
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                e.target.classList.add('selected');
+            }
+
+            if (e.target.closest('.custom-color')) {
+                document.getElementById('custom-color-input').click();
+            }
+        });
+
+        document.getElementById('custom-color-input').addEventListener('input', function () {
+            selectedColor = this.value;
+            document.getElementById('current-color-box').style.backgroundColor = selectedColor;
+
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        });
+
+        document.querySelector('.color-picker-ok').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (currentColorPicker) {
+                currentColorPicker.style.backgroundColor = selectedColor;
+
+                const categoryRow = currentColorPicker.closest('.color-row');
+                const categoryId = categoryRow.dataset.id;
+
+                updateCategoryColor(categoryId, selectedColor);
+            }
+
+            closeColorPicker();
+        });
+
+        document.querySelector('.color-picker-cancel').addEventListener('click', function (e) {
+            e.preventDefault();
+            closeColorPicker();
+        });
+
+        function closeColorPicker() {
+            const modal = document.getElementById('color-picker-modal');
+            modal.classList.remove('active');
+
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+
+            currentColorPicker = null;
         }
     </script>
 </body>
