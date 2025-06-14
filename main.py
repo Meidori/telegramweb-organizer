@@ -18,9 +18,11 @@ app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 mysql = MySQL(app)
   
+
 @app.route("/")  
 def web():  
     return render_template('index.html')  
+
 
 @app.route('/save_user', methods=['POST'])
 def save_user():
@@ -59,6 +61,25 @@ def get_categories():
         
         return jsonify(success=True, categories=categories)
     
+    except Exception as e:
+        return jsonify(success=False, error=str(e)), 500
+
+
+@app.route('/update_category', methods=['POST'])
+def update_category():
+    try:
+        data = request.get_json()
+        category_id = data['category_id']
+        new_name = data['new_name']
+        
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE Category SET name = %s WHERE id = %s", (new_name, category_id))
+        mysql.connection.commit()
+        
+        return jsonify(success=True)
+    
+    except KeyError:
+        return jsonify(success=False, error="category_id and new_name are required"), 400
     except Exception as e:
         return jsonify(success=False, error=str(e)), 500
 

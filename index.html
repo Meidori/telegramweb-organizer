@@ -264,12 +264,6 @@
                 container.insertAdjacentHTML('beforeend', categoryHtml);
             });
         }
-        
-        /*
-        if (document.querySelector('.tab-active').id === 'tab-settings') {
-            loadCategories();
-        }
-        */
     });
 
 
@@ -287,6 +281,49 @@
                 navbarTitle.textContent = "Календарь";
             }
         });
+    </script>
+
+    <script>
+        function renderCategories(categories) {
+            const container = document.getElementById('categories-container');
+            container.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categoryHtml = `
+                    <div class="color-row" data-id="${category.id}">
+                        <div class="color-picker" style="background-color: ${category.color_hex};"></div>
+                        <div class="color-input">
+                            <input type="text" value="${category.name}" placeholder="Введите название">
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', categoryHtml);
+                
+                const input = container.lastElementChild.querySelector('input');
+                input.addEventListener('change', function() {
+                    updateCategory(category.id, this.value);
+                });
+            });
+        }
+
+        async function updateCategory(categoryId, newName) {
+            try {
+                const response = await fetch('/update_category', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        category_id: categoryId,
+                        new_name: newName,
+                        telegram_id: telegram_id
+                    })
+                });
+                
+                const data = await response.json();
+            }
+            catch (error) {
+                console.error('Error updating category:', error);
+            }
+        }
     </script>
 </body>
 
