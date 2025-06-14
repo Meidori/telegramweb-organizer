@@ -179,33 +179,6 @@
                                         <input type="text" placeholder="Введите название">
                                     </div>
                                 </div>
-                                <!-- Color Picker Modal -->
-                                <div class="popup color-picker-modal">
-                                <div class="popup-inner">
-                                    <div class="block">
-                                    <div class="color-picker-preview" style="background-color: #ffffff;"></div>
-                                    <div class="color-picker-options">
-                                        <!-- Basic colors -->
-                                        <div class="color-option" style="background-color: #808080;"></div>
-                                        <div class="color-option" style="background-color: #0e3b0e;"></div>
-                                        <div class="color-option" style="background-color: #00008b;"></div>
-                                        <div class="color-option" style="background-color: #9400d3;"></div>
-                                        <div class="color-option" style="background-color: #ff2b2b;"></div>
-                                        <div class="color-option" style="background-color: #ff8c00;"></div>
-                                        <div class="color-option" style="background-color: #ffd700;"></div>
-                                        <!-- Custom color picker -->
-                                        <div class="color-option custom-color">
-                                        <input type="color" class="custom-color-input">
-                                        <i class="icon f7-icons">eyedropper</i>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <button class="col button button-fill color-picker-cancel">Отмена</button>
-                                        <button class="col button button-fill color-picker-apply">Применить</button>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -223,6 +196,7 @@
         </div>
     </div>
 
+    <input type="color" id="color-picker" style="display: none;">   
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
@@ -311,6 +285,49 @@
                     updateCategory(category.id, this.value);
                 });
             });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('color-picker')) {
+                const colorPicker = document.getElementById('color-picker');
+                const currentColor = e.target.style.backgroundColor;
+                
+                colorPicker.value = rgbToHex(currentColor) || '#ffffff';
+                
+                colorPicker.click();
+                
+                colorPicker.oninput = function() {
+                    const newColor = this.value;
+                    e.target.style.backgroundColor = newColor;
+                    
+                    const categoryRow = e.target.closest('.color-row');
+                    const categoryId = categoryRow.dataset.id;
+                    
+                    updateCategoryColor(categoryId, newColor);
+                };
+            }
+        });
+
+        async function updateCategoryColor(categoryId, newColor) {
+            try {
+                const response = await fetch('/update_category_color', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        category_id: categoryId,
+                        new_color: newColor,
+                        telegram_id: telegram_id
+                    })
+                });
+                
+                const data = await response.json();
+                if (!data.success) {
+                    console.error('Error updating category color:', data.error);
+                }
+            }
+            catch (error) {
+                console.error('Error updating category color:', error);
+            }
         }
 
         async function updateCategory(categoryId, newName) {
