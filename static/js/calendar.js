@@ -5,8 +5,7 @@ app.calendar.create({
     dateFormat: 'yyyy-mm-dd',
     on: {
         change: function (calendar, dates) {
-            console.log('chosen:', dates[0]);
-
+            const selectedDate = dates[0];
             document.getElementById('date-events-title').textContent = `События на ${selectedDate}`;
             app.tab.show('#tab-date-events');
         }
