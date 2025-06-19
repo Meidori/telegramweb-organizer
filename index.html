@@ -238,7 +238,7 @@
                     <div id="tab-calendar" class="tab tab-active">
                         <div class="page-content">
                             <div class="block">
-                                <p>xd</p>
+                                <div id="inline-calendar"></div>
                             </div>
                         </div>
                     </div>
@@ -348,6 +348,17 @@
         const app = new Framework7({
             root: "#app",
             theme: "auto",
+        });
+
+        app.calendar.create({
+            containerEl: '#inline-calendar',  // div where
+            inline: true,
+            dateFormat: 'yyyy-mm-dd',
+            on: {
+                change: function (calendar, dates) {
+                    console.log('chosen:', dates[0]);
+                }
+            }
         });
 
         document.addEventListener('DOMContentLoaded', function () {
