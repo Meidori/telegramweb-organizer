@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7-icons@latest/css/framework7-icons.css" />
     <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
+
 <body>
     <div id="app">
         <div class="view view-main">
@@ -49,6 +50,27 @@
                         <div class="page-content">
                             <div class="block">
                                 <div id="inline-calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Chosen date tab -->
+                    <div id="tab-date-events" class="tab">
+                        <div class="navbar">
+                            <div class="navbar-inner sliding">
+                                <div class="left">
+                                    <a href="#" class="link back">
+                                        <i class="icon icon-back"></i>
+                                        <span class="ios-only">Назад</span>
+                                    </a>
+                                </div>
+                                <div class="title" id="date-events-title">События</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <div class="block">
+                                <div id="date-events-content">
+                                    <!-- events here -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -140,4 +162,5 @@
     <script src="/static/js/categories.js"></script>
     <script src="/static/js/color-picker.js"></script>
 </body>
+
 </html>

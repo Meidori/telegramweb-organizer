@@ -183,3 +183,15 @@ html, body {
     flex: 1;
     margin: 0 5px;
 }
+
+#tab-date-events .page-content {
+    padding-top: 44px; /* navbar */
+}
+
+.event-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 4px solid;
+    border-radius: 4px;
+    background: #f7f7f7;
+}
