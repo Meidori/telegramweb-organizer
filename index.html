@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+
     <title>Organizer</title>
-    
     <!-- CSS Framework7 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7@latest/css/framework7.bundle.min.css" />
     <!-- Icons Framework7 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/framework7-icons@latest/css/framework7-icons.css" />
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css" />
 </head>
-
 <body>
     <div id="app">
         <div class="view view-main">
@@ -20,6 +20,7 @@
             <div class="page page-with-tabs">
                 <div class="navbar">
                     <div class="navbar-inner sliding">
+                        <!-- When the app is opened, the calendar tab is displayed, which is why the navbar has this name. Then the name changes dynamically when switching between tabs. -->
                         <div class="title">Календарь</div>
                     </div>
                 </div>
@@ -51,12 +52,41 @@
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Settings -->
                     <div id="tab-settings" class="tab">
                         <div class="page-content">
                             <div class="block" id="categories-container">
-                                <!-- Categories will be loaded dynamically -->
+                                <!-- color picker - category name -->
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #ffffff;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #ffffff;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #ffffff;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #ffffff;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
+                                <div class="color-row">
+                                    <div class="color-picker" style="background-color: #ffffff;"></div>
+                                    <div class="color-input">
+                                        <input type="text" placeholder="Введите название">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,6 +108,7 @@
     <div id="color-picker-modal" class="color-picker-modal">
         <div class="color-picker-content">
             <div class="current-color-box" id="current-color-box"></div>
+
             <div class="color-options">
                 <div class="color-row">
                     <div class="color-option" style="background-color: #FF5252;" data-color="#FF5252"></div>
@@ -95,6 +126,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="actions">
                 <a href="#" class="button button-fill color-picker-cancel">Отмена</a>
                 <a href="#" class="button button-fill color-picker-ok">OK</a>
