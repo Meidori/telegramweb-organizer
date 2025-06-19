@@ -19,8 +19,3 @@ app.calendar.create({
     }
 });
 
-// "back" btn
-document.getElementById('back-button').addEventListener('click', function (e) {
-    e.preventDefault();
-    app.tab.show('#tab-calendar');
-});
