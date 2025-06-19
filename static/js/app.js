@@ -34,4 +34,21 @@ app.on("tabShow", (tab) => {
     else if (tab.id === "tab-calendar") {
         navbarTitle.textContent = "Календарь";
     }
+    else if (tab.id === "tab-date-events") {
+        // Title for date events tab is set in calendar.js
+    }
+});
+
+// Handle back button in date events tab
+app.on('click', (e) => {
+    const backButton = e.target.closest('.back, .icon-back');
+    if (backButton) {
+        const currentTab = document.querySelector('.tab-active');
+        if (currentTab && currentTab.id === 'tab-date-events') {
+            e.preventDefault();
+            app.tab.show('#tab-calendar', {
+                animate: true
+            });
+        }
+    }
 });

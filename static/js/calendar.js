@@ -18,14 +18,3 @@ app.calendar.create({
         }
     }
 });
-
-// back btn
-document.addEventListener('click', function(e) {
-    if (e.target.closest('.back') || e.target.closest('.icon-back')) {
-        const currentTab = app.tab.get('.tab-active');
-        if (currentTab && currentTab.id === 'tab-date-events') {
-            e.preventDefault();
-            app.tab.show('#tab-calendar');
-        }
-    }
-});
