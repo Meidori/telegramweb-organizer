@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from flask_mysqldb import MySQL
 import os
   
-app = Flask(__name__, template_folder='.')  
+app = Flask(__name__, template_folder='.', static_folder='static')
 
 mysql_user = os.environ["MYSQL_USER"]
 mysql_password = os.environ["MYSQL_PASSWORD"]
