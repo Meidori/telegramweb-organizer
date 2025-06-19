@@ -1,6 +1,6 @@
 let currentColorPicker = null;
 let selectedColor = '#ffffff';
-
+/*
 // Click on color pickers
 document.addEventListener('click', function (e) {
     if (e.target.classList.contains('color-picker')) {
@@ -79,3 +79,4 @@ function closeColorPicker() {
 
     currentColorPicker = null;
 }
+*/
