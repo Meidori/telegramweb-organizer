@@ -188,6 +188,10 @@ html, body {
     padding-top: 44px; /* navbar */
 }
 
+#inline-calendar {
+    touch-action: manipulation;
+}
+
 .event-item {
     padding: 10px;
     margin-bottom: 10px;
