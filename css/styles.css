@@ -91,7 +91,8 @@ html, body {
 
 /* Color Picker Modal */
 .color-picker-modal {
-    display: none !important;
+    display: none;
+    visibility: hidden; /*idk*/
     position: fixed;
     bottom: 0;
     left: 0;
