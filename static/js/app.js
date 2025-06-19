@@ -14,12 +14,12 @@ fetch('/save_user', {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ telegram_id: telegram_id })
 })
-.then(data => {
-    console.log('User saved:', data);
-})
-.catch(error => {
-    console.error('Error saving user:', error);
-});
+    .then(data => {
+        console.log('User saved:', data);
+    })
+    .catch(error => {
+        console.error('Error saving user:', error);
+    });
 
 // Dynamic change navbar title
 app.on("tabShow", (tab) => {
