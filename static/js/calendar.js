@@ -6,8 +6,21 @@ app.calendar.create({
     on: {
         change: function (calendar, dates) {
             const selectedDate = dates[0];
-            document.getElementById('date-events-title').textContent = `События на ${selectedDate}`;
+            const dateObj = new Date(selectedDate);
+
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const year = dateObj.getFullYear();
+
+            const formattedDate = `${day}.${month}.${year}`;
+            document.getElementById('date-events-title').textContent = formattedDate;
             app.tab.show('#tab-date-events');
         }
     }
+});
+
+// "back" btn
+document.getElementById('back-button').addEventListener('click', function (e) {
+    e.preventDefault();
+    app.tab.show('#tab-calendar');
 });
