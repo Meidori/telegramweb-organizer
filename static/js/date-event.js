@@ -16,6 +16,7 @@ async function loadCategories() {
         }
         else {
             console.error('Error loading categories:', data.error);
+            document.getElementById('date-events-content').innerHTML = '<p>Нет категорий для отображения</p>';
         }
     }
     catch (error) {
@@ -43,7 +44,7 @@ function renderCategories(categories) {
 
         // Add event listener for toggle
         const toggle = container.lastElementChild.querySelector('.category-toggle');
-        toggle.addEventListener('change', function() {
+        toggle.addEventListener('change', function () {
             handleCategoryToggle(category.id, this.checked);
         });
     });
