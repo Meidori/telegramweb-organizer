@@ -3,6 +3,7 @@ app.calendar.create({
     containerEl: '#inline-calendar',
     inline: true,
     touchMove: true,
+    mode: 'touch',
     dateFormat: 'yyyy-mm-dd',
     on: {
         change: function (calendar, dates) {
