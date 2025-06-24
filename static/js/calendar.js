@@ -31,17 +31,3 @@ app.calendar.create({
         }
     }
 });
-
-// for mobile:
-document.querySelector('#tab-date-events .link.back').addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // hide event tab
-    document.getElementById('tab-date-events').classList.remove('tab-active');
-
-    // show calendar tab
-    document.getElementById('tab-calendar').classList.add('tab-active');
-
-    // update navbar title
-    document.querySelector('.navbar .title').textContent = 'Календарь';
-});

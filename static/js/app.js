@@ -40,15 +40,12 @@ app.on("tabShow", (tab) => {
 });
 
 // Handle back button in date events tab
-app.on('click', (e) => {
-    const backButton = e.target.closest('.back, .icon-back');
-    if (backButton) {
-        const currentTab = document.querySelector('.tab-active');
-        if (currentTab && currentTab.id === 'tab-date-events') {
-            e.preventDefault();
-            app.tab.show('#tab-calendar', {
-                animate: true
-            });
-        }
+$$('.back, .icon-back').on('click', function(e) {
+    const currentTab = document.querySelector('.tab-active');
+    if (currentTab && currentTab.id === 'tab-date-events') {
+        e.preventDefault();
+        app.tab.show('#tab-calendar', {
+            animate: true
+        });
     }
 });
