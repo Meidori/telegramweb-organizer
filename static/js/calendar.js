@@ -14,7 +14,9 @@ app.calendar.create({
             const year = dateObj.getFullYear();
 
             const formattedDate = `${day}.${month}.${year}`;
-
+            document.getElementById('date-events-title').textContent = formattedDate; // for pc
+            
+            // next code for correct work on mobile phones:
             // hide current tab
             const currentTab = document.querySelector('.tab.tab-active');
             const dateEventsTab = document.getElementById('tab-date-events');
@@ -25,7 +27,21 @@ app.calendar.create({
 
             // update navbar
             const navbarTitle = document.querySelector('.navbar .title');
-            if (navbarTitle) navbarTitle.textContent = formattedDate;
+            if (navbarTitle) navbarTitle.textContent = formattedDate; // for mobile
         }
     }
+});
+
+// for mobile:
+document.querySelector('#tab-date-events .link.back').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // hide event tab
+    document.getElementById('tab-date-events').classList.remove('tab-active');
+
+    // show calendar tab
+    document.getElementById('tab-calendar').classList.add('tab-active');
+
+    // update navbar title
+    document.querySelector('.navbar .title').textContent = 'Календарь';
 });
