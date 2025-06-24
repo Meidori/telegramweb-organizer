@@ -30,7 +30,7 @@ function renderCategoriesForEvent(categories) {
     categories.forEach(category => {
         const categoryHtml = `
             <div class="category-item">
-                <div class="category-name" style="color: ${category.color_hex}">
+                <div class="category-name">
                     ${category.name}
                 </div>
                 <label class="toggle toggle-init">
