@@ -14,9 +14,8 @@ app.calendar.create({
             const year = dateObj.getFullYear();
 
             const formattedDate = `${day}.${month}.${year}`;
-            document.getElementById('date-events-title').textContent = formattedDate;
 
-            // Скрыть текущую активную вкладку
+            // hide current tab
             const currentTab = document.querySelector('.tab.tab-active');
             const dateEventsTab = document.getElementById('tab-date-events');
             if (currentTab && dateEventsTab) {
@@ -24,13 +23,9 @@ app.calendar.create({
                 dateEventsTab.classList.add('tab-active');
             }
 
-            // Обновить заголовок в navbar
+            // update navbar
             const navbarTitle = document.querySelector('.navbar .title');
-            if (navbarTitle) navbarTitle.textContent = 'События';
-
-            // Скрыть нижнюю панель табов
-            const tabbar = document.querySelector('.toolbar.tabbar');
-            if (tabbar) tabbar.style.display = 'none';
+            if (navbarTitle) navbarTitle.textContent = formattedDate;
         }
     }
 });
