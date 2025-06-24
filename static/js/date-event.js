@@ -25,11 +25,6 @@ async function loadCategories() {
 
 function renderCategories(categories) {
     const container = document.getElementById('date-events-content');
-    if (!container) {
-        console.error('date-events-content not in DOM');
-        return;
-    }
-
     container.innerHTML = '';
 
     categories.forEach(category => {
