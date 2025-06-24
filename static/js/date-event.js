@@ -1,6 +1,7 @@
 // Load categories when calendar tab is shown
 app.on('tabShow', async (tab) => {
     if (tab.id === "tab-date-events") {
+        console.log("showen event");
         await loadCategories();
     }
 });
@@ -24,6 +25,11 @@ async function loadCategories() {
 
 function renderCategories(categories) {
     const container = document.getElementById('date-events-content');
+    if (!container) {
+        console.error('date-events-content not in DOM');
+        return;
+    }
+
     container.innerHTML = '';
 
     categories.forEach(category => {
