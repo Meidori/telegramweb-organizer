@@ -1,7 +1,6 @@
 // Load categories when calendar tab is shown
 app.on('tabShow', async (tab) => {
     if (tab.id === "tab-date-events") {
-        console.log("showen event");
         await loadCategories();
     }
 });

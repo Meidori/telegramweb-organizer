@@ -14,20 +14,8 @@ app.calendar.create({
             const year = dateObj.getFullYear();
 
             const formattedDate = `${day}.${month}.${year}`;
-            document.getElementById('date-events-title').textContent = formattedDate; // for pc
-            
-            // next code for correct work on mobile phones:
-            // hide current tab
-            const currentTab = document.querySelector('.tab.tab-active');
-            const dateEventsTab = document.getElementById('tab-date-events');
-            if (currentTab && dateEventsTab) {
-                currentTab.classList.remove('tab-active');
-                dateEventsTab.classList.add('tab-active');
-            }
-
-            // update navbar
-            const navbarTitle = document.querySelector('.navbar .title');
-            if (navbarTitle) navbarTitle.textContent = formattedDate; // for mobile
+            document.getElementById('date-events-title').textContent = formattedDate;
+            app.tab.show('#tab-date-events');
         }
     }
 });
