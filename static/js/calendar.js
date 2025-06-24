@@ -15,7 +15,22 @@ app.calendar.create({
 
             const formattedDate = `${day}.${month}.${year}`;
             document.getElementById('date-events-title').textContent = formattedDate;
-            app.tab.show('#tab-date-events');
+
+            // Скрыть текущую активную вкладку
+            const currentTab = document.querySelector('.tab.tab-active');
+            const dateEventsTab = document.getElementById('tab-date-events');
+            if (currentTab && dateEventsTab) {
+                currentTab.classList.remove('tab-active');
+                dateEventsTab.classList.add('tab-active');
+            }
+
+            // Обновить заголовок в navbar
+            const navbarTitle = document.querySelector('.navbar .title');
+            if (navbarTitle) navbarTitle.textContent = 'События';
+
+            // Скрыть нижнюю панель табов
+            const tabbar = document.querySelector('.toolbar.tabbar');
+            if (tabbar) tabbar.style.display = 'none';
         }
     }
 });
