@@ -234,7 +234,6 @@ html, body {
     font-weight: 500;
     font-size: 1.1rem;
     color: #333;
-    text-align: center;
     flex-grow: 1;
 }
 
@@ -262,15 +261,4 @@ html, body {
     background-color: rgba(58, 123, 213, 0.2);
 }
 
-.date-separator {
-    margin: 15px 0;
-    border: none;
-    border-top: 1px solid #eee;
-}
-
-.no-categories {
-    text-align: center;
-    color: #999;
-    padding: 25px 0;
-    font-style: italic;
-}
+/* Остальные стили остаются без изменений */

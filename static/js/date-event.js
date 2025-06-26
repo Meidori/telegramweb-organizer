@@ -64,11 +64,11 @@ function renderCategoriesForEvent(categories, currentDate, markedCategories = []
 
     const dateSwitcherHtml = `
         <div class="date-switcher">
+            <div class="current-date">${dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
             <div class="date-nav-buttons">
                 <button class="date-nav-button" data-date="${formatDate(prevDate)}">‹</button>
                 <button class="date-nav-button" data-date="${formatDate(nextDate)}">›</button>
             </div>
-            <div class="current-date">${dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
         </div>
     `;
     container.insertAdjacentHTML('beforeend', dateSwitcherHtml);
