@@ -92,20 +92,21 @@ function renderCategoriesForEvent(categories, currentDate, markedCategories = []
                     <div class="category-name">
                         ${category.name}
                     </div>
-                    <label class="toggle toggle-init">
-                        <input type="checkbox" class="category-toggle" 
-                               data-category-id="${category.id}" 
-                               ${isChecked ? 'checked' : ''}>
-                        <span class="toggle-icon"></span>
-                    </label>
+                    <div class="star-checkbox ${isChecked ? 'checked' : ''}" 
+                        data-category-id="${category.id}">
+                        ${isChecked ? '✓' : '☆'}
+                    </div>
                 </div>
             `;
             container.insertAdjacentHTML('beforeend', categoryHtml);
 
             // Add event listener for toggle
-            const toggle = container.lastElementChild.querySelector('.category-toggle');
-            toggle.addEventListener('change', function () {
-                handleCategoryToggle(category.id, this.checked);
+            const starCheckbox = container.lastElementChild.querySelector('.star-checkbox');
+            starCheckbox.addEventListener('click', function () {
+                const isChecked = !this.classList.contains('checked');
+                this.classList.toggle('checked');
+                this.textContent = isChecked ? '✓' : '☆';
+                handleCategoryToggle(category.id, isChecked);
             });
         });
     }

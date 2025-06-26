@@ -264,3 +264,23 @@ html, body {
     border: none; 
     border-top: 1px solid #eee;
 }
+
+.star-checkbox {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
+    transition: all 0.2s;
+}
+
+.star-checkbox.checked {
+    color: #3a7bd5;
+}
+
+.star-checkbox:hover {
+    transform: scale(1.1);
+}
