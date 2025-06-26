@@ -59,9 +59,6 @@ function renderCategoriesForEvent(categories, currentDate, markedCategories = []
     const nextDate = new Date(dateObj);
     nextDate.setDate(dateObj.getDate() + 1);
 
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const displayDate = dateObj.toLocaleDateString('ru-RU', options);
-
     const dateSwitcherHtml = `
         <div class="date-switcher">
             <div class="current-date">${dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
@@ -88,8 +85,7 @@ function renderCategoriesForEvent(categories, currentDate, markedCategories = []
             const isChecked = markedCategories.includes(category.id);
 
             const categoryHtml = `
-                <div class="color-row">
-                    <div class="color-picker" style="background-color: ${category.color_hex || '#ffffff'};"></div>
+                <div class="category-item">
                     <div class="category-name">
                         ${category.name}
                     </div>
@@ -101,7 +97,6 @@ function renderCategoriesForEvent(categories, currentDate, markedCategories = []
             `;
             container.insertAdjacentHTML('beforeend', categoryHtml);
 
-            // Add event listener for toggle
             const starCheckbox = container.lastElementChild.querySelector('.star-checkbox');
             starCheckbox.addEventListener('click', function () {
                 const isChecked = !this.classList.contains('checked');
