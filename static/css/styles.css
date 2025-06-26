@@ -226,8 +226,6 @@ html, body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    margin-bottom: 20px;
-    /*border-bottom: 1px solid #f0f0f0;*/
 }
 
 .current-date {
