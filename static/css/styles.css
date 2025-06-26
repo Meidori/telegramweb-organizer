@@ -192,40 +192,8 @@ html, body {
     touch-action: manipulation;
 }
 
-/* Calendar header styling */
-.calendar-header {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    margin-bottom: 10px !important;
-}
-
-.calendar-month-year {
-    font-size: 1.2rem !important;
-    font-weight: 500 !important;
-}
-
-.calendar-prev, .calendar-next {
-    height: 40px !important;
-    width: 40px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 50% !important;
-    background-color: #f5f5f5 !important;
-    margin: 0 5px !important;
-}
-
-.calendar-prev:active, .calendar-next:active {
-    background-color: #e0e0e0 !important;
-}
-
-/* Move the header up */
-.calendar-months-wrapper {
-    padding-top: 0 !important;
-}
-
 .calendar-header + .calendar-months-wrapper {
-    margin-top: 0 !important;
+    margin-top: -10px !important;
 }
 
 .event-item {
