@@ -192,10 +192,6 @@ html, body {
     touch-action: manipulation;
 }
 
-.calendar-header + .calendar-months-wrapper {
-    margin-top: -10px !important;
-}
-
 .event-item {
     padding: 10px;
     margin-bottom: 10px;

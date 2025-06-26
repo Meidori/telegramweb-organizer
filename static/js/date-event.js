@@ -88,7 +88,8 @@ function renderCategoriesForEvent(categories, currentDate, markedCategories = []
             const isChecked = markedCategories.includes(category.id);
 
             const categoryHtml = `
-                <div class="category-item">
+                <div class="color-row">
+                    <div class="color-picker" style="background-color: ${category.color_hex || '#ffffff'};"></div>
                     <div class="category-name">
                         ${category.name}
                     </div>
