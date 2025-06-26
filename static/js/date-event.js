@@ -1,7 +1,9 @@
+let currentSelectedDate = new Date();
+
 // Load categories when calendar tab is shown
 app.on('tabShow', async (tab) => {
     if (tab.id === "tab-date-events") {
-        await loadCategoriesForEvent();
+        await loadCategoriesForEvent(formatDate(currentSelectedDate));
     }
 });
 
@@ -21,7 +23,9 @@ function formatDate(date) {
 
 async function loadCategoriesForEvent(date) {
     try {
-        const response = await fetch(`/get_categories?telegram_id=${telegram_id}&date=${date}`);
+        currentSelectedDate = new Date(date);
+
+        const response = await fetch(`/get_categories?telegram_id=${telegram_id}&date=${formatDate(date)}`);
         const data = await response.json();
 
         if (data.success) {
@@ -38,18 +42,19 @@ async function loadCategoriesForEvent(date) {
 }
 
 
+
 function renderCategoriesForEvent(categories, currentDate) {
     const container = document.getElementById('date-events-content');
     container.innerHTML = '';
 
     const dateObj = new Date(currentDate);
-    
+
     const prevDate = new Date(dateObj);
     prevDate.setDate(dateObj.getDate() - 1);
-    
+
     const nextDate = new Date(dateObj);
     nextDate.setDate(dateObj.getDate() + 1);
-    
+
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const displayDate = dateObj.toLocaleDateString('ru-RU', options);
 
@@ -64,7 +69,7 @@ function renderCategoriesForEvent(categories, currentDate) {
 
     const navButtons = container.querySelectorAll('.date-nav-button');
     navButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const newDate = this.getAttribute('data-date');
             loadCategoriesForEvent(newDate);
         });
