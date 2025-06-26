@@ -7,7 +7,6 @@ app.on('tabShow', async (tab) => {
     }
 });
 
-
 function formatDate(date) {
     const d = new Date(date);
     let month = '' + (d.getMonth() + 1);
@@ -20,30 +19,35 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
-
 async function loadCategoriesForEvent(date) {
     try {
         currentSelectedDate = new Date(date);
 
-        const response = await fetch(`/get_categories?telegram_id=${telegram_id}&date=${formatDate(date)}`);
-        const data = await response.json();
+        // Load categories
+        const categoriesResponse = await fetch(`/get_categories?telegram_id=${telegram_id}`);
+        const categoriesData = await categoriesResponse.json();
 
-        if (data.success) {
-            renderCategoriesForEvent(data.categories, date);
-        }
-        else {
-            console.error('Error loading categories:', data.error);
+        if (!categoriesData.success) {
+            console.error('Error loading categories:', categoriesData.error);
             document.getElementById('date-events-content').innerHTML = '<p>Нет категорий для отображения</p>';
+            return;
         }
+
+        // Load marked categories for selected date
+        const entriesResponse = await fetch(`/get_day_entries?telegram_id=${telegram_id}&date=${formatDate(date)}`);
+        const entriesData = await entriesResponse.json();
+
+        const markedCategories = entriesData.success ? entriesData.entries.map(e => e.category_id) : [];
+
+        // Render categories with marks
+        renderCategoriesForEvent(categoriesData.categories, date, markedCategories);
     }
     catch (error) {
         console.error('Error loading categories:', error);
     }
 }
 
-
-
-function renderCategoriesForEvent(categories, currentDate) {
+function renderCategoriesForEvent(categories, currentDate, markedCategories = []) {
     const container = document.getElementById('date-events-content');
     container.innerHTML = '';
 
@@ -79,13 +83,17 @@ function renderCategoriesForEvent(categories, currentDate) {
 
     if (categories.length > 0) {
         categories.forEach(category => {
+            const isChecked = markedCategories.includes(category.id);
+            
             const categoryHtml = `
                 <div class="category-item">
                     <div class="category-name">
                         ${category.name}
                     </div>
                     <label class="toggle toggle-init">
-                        <input type="checkbox" class="category-toggle" data-category-id="${category.id}">
+                        <input type="checkbox" class="category-toggle" 
+                               data-category-id="${category.id}" 
+                               ${isChecked ? 'checked' : ''}>
                         <span class="toggle-icon"></span>
                     </label>
                 </div>
@@ -104,7 +112,26 @@ function renderCategoriesForEvent(categories, currentDate) {
     }
 }
 
-
-function handleCategoryToggle(categoryId, isChecked) {
-    console.log(`Category ${categoryId} is now ${isChecked ? 'active' : 'inactive'}`);
+async function handleCategoryToggle(categoryId, isChecked) {
+    try {
+        const date = formatDate(currentSelectedDate);
+        const url = isChecked ? '/add_day_entry' : '/remove_day_entry';
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                telegram_id: telegram_id,
+                category_id: categoryId,
+                date: date
+            })
+        });
+        
+        const data = await response.json();
+        if (!data.success) {
+            console.error('Error:', data.error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }

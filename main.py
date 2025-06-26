@@ -103,5 +103,106 @@ def update_category_color():
         return jsonify(success=False, error=str(e)), 500
 
 
+@app.route('/add_day_entry', methods=['POST'])
+def add_day_entry():
+    try:
+        data = request.get_json()
+        telegram_id = data['telegram_id']
+        category_id = data['category_id']
+        entry_date = data['date']
+        
+        cursor = mysql.connection.cursor()
+        
+        cursor.execute("SELECT id FROM User WHERE telegram_id = %s", (telegram_id,))
+        user = cursor.fetchone()
+        if not user:
+            return jsonify(success=False, error="User not found"), 404
+            
+        user_id = user['id']
+        
+        cursor.execute("""
+            SELECT id FROM DayEntry 
+            WHERE user_id = %s AND category_id = %s AND DATE(entry_date) = %s
+        """, (user_id, category_id, entry_date))
+        existing_entry = cursor.fetchone()
+        
+        if existing_entry:
+            return jsonify(success=True, message="Entry already exists")
+            
+        cursor.execute("""
+            INSERT INTO DayEntry (user_id, entry_date, category_id)
+            VALUES (%s, %s, %s)
+        """, (user_id, entry_date, category_id))
+        mysql.connection.commit()
+        
+        return jsonify(success=True)
+        
+    except KeyError as e:
+        return jsonify(success=False, error=f"Missing required field: {str(e)}"), 400
+    except Exception as e:
+        return jsonify(success=False, error=str(e)), 500
+
+
+@app.route('/remove_day_entry', methods=['POST'])
+def remove_day_entry():
+    try:
+        data = request.get_json()
+        telegram_id = data['telegram_id']
+        category_id = data['category_id']
+        entry_date = data['date']
+        
+        cursor = mysql.connection.cursor()
+        
+        cursor.execute("SELECT id FROM User WHERE telegram_id = %s", (telegram_id,))
+        user = cursor.fetchone()
+        if not user:
+            return jsonify(success=False, error="User not found"), 404
+            
+        user_id = user['id']
+        
+        cursor.execute("""
+            DELETE FROM DayEntry 
+            WHERE user_id = %s AND category_id = %s AND DATE(entry_date) = %s
+        """, (user_id, category_id, entry_date))
+        mysql.connection.commit()
+        
+        return jsonify(success=True, deleted=cursor.rowcount > 0)
+        
+    except KeyError as e:
+        return jsonify(success=False, error=f"Missing required field: {str(e)}"), 400
+    except Exception as e:
+        return jsonify(success=False, error=str(e)), 500
+
+
+@app.route('/get_day_entries', methods=['GET'])
+def get_day_entries():
+    try:
+        telegram_id = request.args.get('telegram_id')
+        date = request.args.get('date')
+        if not telegram_id or not date:
+            return jsonify(success=False, error="telegram_id and date are required"), 400
+            
+        cursor = mysql.connection.cursor()
+        
+        cursor.execute("SELECT id FROM User WHERE telegram_id = %s", (telegram_id,))
+        user = cursor.fetchone()
+        if not user:
+            return jsonify(success=False, error="User not found"), 404
+            
+        user_id = user['id']
+        
+        cursor.execute("""
+            SELECT category_id 
+            FROM DayEntry 
+            WHERE user_id = %s AND DATE(entry_date) = %s
+        """, (user_id, date))
+        entries = cursor.fetchall()
+        
+        return jsonify(success=True, entries=entries)
+    
+    except Exception as e:
+        return jsonify(success=False, error=str(e)), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port='80')  
