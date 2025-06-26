@@ -64,9 +64,11 @@ function renderCategoriesForEvent(categories, currentDate, markedCategories = []
 
     const dateSwitcherHtml = `
         <div class="date-switcher">
-            <button class="date-nav-button" data-date="${formatDate(prevDate)}">← ${prevDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })}</button>
-            <div class="current-date">${displayDate}</div>
-            <button class="date-nav-button" data-date="${formatDate(nextDate)}">${nextDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })} →</button>
+            <div class="date-nav-buttons">
+                <button class="date-nav-button" data-date="${formatDate(prevDate)}">‹</button>
+                <button class="date-nav-button" data-date="${formatDate(nextDate)}">›</button>
+            </div>
+            <div class="current-date">${dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
         </div>
     `;
     container.insertAdjacentHTML('beforeend', dateSwitcherHtml);
@@ -84,7 +86,7 @@ function renderCategoriesForEvent(categories, currentDate, markedCategories = []
     if (categories.length > 0) {
         categories.forEach(category => {
             const isChecked = markedCategories.includes(category.id);
-            
+
             const categoryHtml = `
                 <div class="category-item">
                     <div class="category-name">
@@ -116,7 +118,7 @@ async function handleCategoryToggle(categoryId, isChecked) {
     try {
         const date = formatDate(currentSelectedDate);
         const url = isChecked ? '/add_day_entry' : '/remove_day_entry';
-        
+
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -126,7 +128,7 @@ async function handleCategoryToggle(categoryId, isChecked) {
                 date: date
             })
         });
-        
+
         const data = await response.json();
         if (!data.success) {
             console.error('Error:', data.error);
