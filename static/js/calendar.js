@@ -14,7 +14,7 @@ app.calendar.create({
             const year = dateObj.getFullYear();
 
             const formattedDate = `${day}.${month}.${year}`;
-            document.getElementById('date-events-title').textContent = formattedDate;
+            // document.getElementById('date-events-title').textContent = formattedDate;
             loadCategoriesForEvent(selectedDate);
             app.tab.show('#tab-date-events');
         }
