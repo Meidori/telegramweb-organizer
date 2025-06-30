@@ -139,23 +139,18 @@ function createCategoryBar(category, categoryData) {
     const gradientBar = document.createElement('div');
     gradientBar.className = 'gradient-bar';
     
-    for (let i = 0; i < 9; i++) {
-        const segment = document.createElement('div');
-        segment.className = 'gradient-segment';
-        
-        const segmentThreshold = (i + 1) * (100 / 9);
-        const opacity = percentage >= segmentThreshold ? 1 : 
-                       percentage > (i * (100 / 9)) ? (percentage - (i * (100 / 9))) / (100 / 9) : 0;
-        
-        segment.style.backgroundColor = category.color_hex;
-        segment.style.opacity = opacity;
-        
-        if (i < 8) {
-            segment.style.boxShadow = 'inset 0 -1px 0 rgba(255,255,255,0.2)';
-        }
-        
-        gradientBar.appendChild(segment);
-    }
+    const gradientFill = document.createElement('div');
+    gradientFill.className = 'gradient-fill';
+    
+    const fillHeight = Math.min(100, percentage);
+    gradientFill.style.height = `${fillHeight}%`;
+    
+    // gradient
+    const color = hexToRgba(category.color_hex, 1);
+    const transparent = hexToRgba(category.color_hex, 0);
+    gradientFill.style.background = `linear-gradient(to top, ${transparent}, ${color})`;
+    
+    gradientBar.appendChild(gradientFill);
     
     const countLabel = document.createElement('div');
     countLabel.className = 'category-count';
@@ -166,6 +161,23 @@ function createCategoryBar(category, categoryData) {
     categoryBar.appendChild(countLabel);
     
     return categoryBar;
+}
+
+// HEX -> RGBA
+function hexToRgba(hex, opacity) {
+    let r = 0, g = 0, b = 0;
+    
+    hex = hex.replace('#', '');
+    
+    if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    
+    r = parseInt(hex.substring(0, 2), 16);
+    g = parseInt(hex.substring(2, 4), 16);
+    b = parseInt(hex.substring(4, 6), 16);
+    
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
 
 
