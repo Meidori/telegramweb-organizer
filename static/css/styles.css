@@ -285,3 +285,32 @@ html, body {
 .star-checkbox:hover {
     transform: scale(1.1);
 }
+
+/* stats */
+.year-navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.year-navigation .current-year {
+    font-size: 18px;
+    font-weight: 500;
+    min-width: 60px;
+    text-align: center;
+}
+
+.year-navigation a.link {
+    color: var(--f7-theme-color);
+    text-decoration: none;
+}
+
+.stats-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.stats-year {
+    font-weight: bold;
+    color: var(--f7-theme-color);
+}
