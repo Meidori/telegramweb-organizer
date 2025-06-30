@@ -1,37 +1,44 @@
 let currentStatsYear = new Date().getFullYear();
-let telegram_id = window.Telegram.WebApp.initDataUnsafe?.user?.id;
 
 
 function initStats() {
     const yearPrev = document.querySelector('.year-prev');
     const yearNext = document.querySelector('.year-next');
     
-    yearPrev.addEventListener('click', (e) => {
-        e.preventDefault();
-        changeYear(-1);
-    });
+    if (yearPrev && yearNext) {
+        yearPrev.addEventListener('click', (e) => {
+            e.preventDefault();
+            changeYear(-1);
+        });
+        
+        yearNext.addEventListener('click', (e) => {
+            e.preventDefault();
+            changeYear(1);
+        });
+    }
     
-    yearNext.addEventListener('click', (e) => {
-        e.preventDefault();
-        changeYear(1);
-    });
-    
-    updateStatsYearDisplay();
-    loadStatsData(currentStatsYear);
+    updateStatsDisplay();
 }
 
 
-function updateStatsYearDisplay() {
-    document.querySelector('.current-year').textContent = currentStatsYear;
-    document.querySelector('.stats-year').textContent = currentStatsYear;
+function changeYear(delta) {
+    currentStatsYear += delta;
+    updateStatsDisplay();
 }
 
 
-function loadStatsData(year) {
-    const statsContent = document.querySelector('.stats-content');
-    statsContent.innerHTML = '<div class="preloader"></div>';
-    // pass
+function updateStatsDisplay() {
+    const yearElement = document.querySelector('.current-year');
+    if (yearElement) {
+        yearElement.textContent = currentStatsYear;
+    }
+    
+    const statsYearElement = document.querySelector('.stats-year');
+    if (statsYearElement) {
+        statsYearElement.textContent = currentStatsYear;
+    }
 }
 
 
 document.addEventListener('DOMContentLoaded', initStats);
+
