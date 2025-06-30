@@ -313,8 +313,8 @@ html, body {
 }
 
 .year-selector .button {
-    width: 36px;
-    height: 36px;
+    width: 20px;
+    height: 20px;
     margin: 0;
     padding: 0;
     display: flex;

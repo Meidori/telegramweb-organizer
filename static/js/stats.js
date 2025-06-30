@@ -23,11 +23,11 @@ function initStats() {
 
 function changeYear(delta) {
     currentStatsYear += delta;
-    updateStatsDisplay();
+    updateStatsDisplay(currentStatsYear);
 }
 
 
-function updateStatsDisplay() {
+function updateStatsDisplay(currentStatsYear) {
     const yearElement = document.querySelector('.current-year');
     if (yearElement) {
         yearElement.textContent = currentStatsYear;
