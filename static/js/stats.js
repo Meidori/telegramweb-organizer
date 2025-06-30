@@ -1,7 +1,9 @@
-let currentStatsYear = new Date().getFullYear();
+let currentStatsYear;
 
 
 function initStats() {
+    currentStatsYear = new Date().getFullYear();
+    
     const yearPrev = document.querySelector('.year-prev');
     const yearNext = document.querySelector('.year-next');
     
@@ -23,11 +25,11 @@ function initStats() {
 
 function changeYear(delta) {
     currentStatsYear += delta;
-    updateStatsDisplay(currentStatsYear);
+    updateStatsDisplay();
 }
 
 
-function updateStatsDisplay(currentStatsYear) {
+function updateStatsDisplay() {
     const yearElement = document.querySelector('.current-year');
     if (yearElement) {
         yearElement.textContent = currentStatsYear;
@@ -41,4 +43,3 @@ function updateStatsDisplay(currentStatsYear) {
 
 
 document.addEventListener('DOMContentLoaded', initStats);
-

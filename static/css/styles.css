@@ -313,16 +313,12 @@ html, body {
 }
 
 .year-selector .button {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-}
-
-.stats-content {
-    padding-top: 10px;
 }
