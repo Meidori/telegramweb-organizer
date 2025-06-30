@@ -149,6 +149,11 @@ function createCategoryBar(category, categoryData) {
         
         segment.style.backgroundColor = category.color_hex;
         segment.style.opacity = opacity;
+        
+        if (i < 8) {
+            segment.style.boxShadow = 'inset 0 -1px 0 rgba(255,255,255,0.2)';
+        }
+        
         gradientBar.appendChild(segment);
     }
     
