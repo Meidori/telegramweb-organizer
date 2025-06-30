@@ -204,5 +204,57 @@ def get_day_entries():
         return jsonify(success=False, error=str(e)), 500
 
 
+@app.route('/get_year_stats', methods=['GET'])
+def get_year_stats():
+    try:
+        telegram_id = request.args.get('telegram_id')
+        year = request.args.get('year')
+        
+        if not telegram_id or not year:
+            return jsonify(success=False, error="telegram_id and year are required"), 400
+            
+        cursor = mysql.connection.cursor()
+        
+        cursor.execute("SELECT id FROM User WHERE telegram_id = %s", (telegram_id,))
+        user = cursor.fetchone()
+        if not user:
+            return jsonify(success=False, error="User not found"), 404
+            
+        user_id = user['id']
+        
+        stats = {}
+        for month in range(1, 13):
+            days_in_month = 31 
+            
+            cursor.execute("""
+                SELECT 
+                    c.id AS category_id,
+                    COUNT(de.id) AS count,
+                    DAY(LAST_DAY(%s-%s-01)) AS days_in_month
+                FROM Category c
+                LEFT JOIN DayEntry de ON 
+                    de.category_id = c.id AND 
+                    de.user_id = %s AND 
+                    YEAR(de.entry_date) = %s AND 
+                    MONTH(de.entry_date) = %s
+                WHERE c.user_id = %s
+                GROUP BY c.id
+            """, (year, month, user_id, year, month, user_id))
+            
+            month_stats = {}
+            for row in cursor.fetchall():
+                month_stats[row['category_id']] = {
+                    'count': row['count'],
+                    'days_in_month': row['days_in_month']
+                }
+            
+            stats[month - 1] = month_stats  # Индексы месяцев 0-11
+        
+        return jsonify(success=True, stats=stats)
+    
+    except Exception as e:
+        return jsonify(success=False, error=str(e)), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port='80')  
