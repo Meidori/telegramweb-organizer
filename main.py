@@ -256,5 +256,71 @@ def get_year_stats():
         return jsonify(success=False, error=str(e)), 500
 
 
+@app.route('/add_category', methods=['POST'])
+def add_category():
+    try:
+        data = request.get_json()
+        telegram_id = data['telegram_id']
+        name = data['name']
+        color_hex = data.get('color_hex', '#FFFFFF')
+        
+        cursor = mysql.connection.cursor()
+        
+        # Get user ID
+        cursor.execute("SELECT id FROM User WHERE telegram_id = %s", (telegram_id,))
+        user = cursor.fetchone()
+        if not user:
+            return jsonify(success=False, error="User not found"), 404
+            
+        user_id = user['id']
+        
+        # Insert new category
+        cursor.execute("""
+            INSERT INTO Category (user_id, name, color_hex)
+            VALUES (%s, %s, %s)
+        """, (user_id, name, color_hex))
+        mysql.connection.commit()
+        
+        return jsonify(success=True, category_id=cursor.lastrowid)
+        
+    except KeyError:
+        return jsonify(success=False, error="telegram_id and name are required"), 400
+    except Exception as e:
+        return jsonify(success=False, error=str(e)), 500
+
+
+@app.route('/delete_category', methods=['POST'])
+def delete_category():
+    try:
+        data = request.get_json()
+        telegram_id = data['telegram_id']
+        category_id = data['category_id']
+        
+        cursor = mysql.connection.cursor()
+        
+        # Verify user owns the category
+        cursor.execute("""
+            SELECT c.id 
+            FROM Category c
+            JOIN User u ON c.user_id = u.id
+            WHERE u.telegram_id = %s AND c.id = %s
+        """, (telegram_id, category_id))
+        category = cursor.fetchone()
+        
+        if not category:
+            return jsonify(success=False, error="Category not found or not owned by user"), 404
+            
+        # Delete category
+        cursor.execute("DELETE FROM Category WHERE id = %s", (category_id,))
+        mysql.connection.commit()
+        
+        return jsonify(success=True)
+        
+    except KeyError:
+        return jsonify(success=False, error="telegram_id and category_id are required"), 400
+    except Exception as e:
+        return jsonify(success=False, error=str(e)), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port='80')  

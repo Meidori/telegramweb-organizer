@@ -5,6 +5,7 @@ app.on('tabShow', async (tab) => {
     }
 });
 
+
 async function loadCategories() {
     try {
         const response = await fetch(`/get_categories?telegram_id=${telegram_id}`);
@@ -21,6 +22,7 @@ async function loadCategories() {
         console.error('Error loading categories:', error);
     }
 }
+
 
 function renderCategories(categories) {
     const container = document.getElementById('categories-container');
@@ -42,7 +44,10 @@ function renderCategories(categories) {
             updateCategory(category.id, this.value);
         });
     });
+    
+    addCategoryControls(); // Add the controls after rendering categories
 }
+
 
 async function updateCategory(categoryId, newName) {
     try {
@@ -100,4 +105,103 @@ function rgbToHex(rgb) {
         const hex = x.toString(16);
         return hex.length === 1 ? '0' + hex : hex;
     }).join('');
+}
+
+
+async function addCategory(name, color = '#FFFFFF') {
+    try {
+        const response = await fetch('/add_category', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                telegram_id: telegram_id,
+                name: name,
+                color_hex: color
+            })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            await loadCategories(); // Refresh the list
+        }
+        return data;
+    }
+    catch (error) {
+        console.error('Error adding category:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+async function deleteCategory(categoryId) {
+    try {
+        const response = await fetch('/delete_category', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                telegram_id: telegram_id,
+                category_id: categoryId
+            })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            await loadCategories(); // Refresh the list
+        }
+        return data;
+    }
+    catch (error) {
+        console.error('Error deleting category:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+
+function addCategoryControls() {
+    const container = document.getElementById('categories-container');
+    
+    // Add button
+    const addButton = document.createElement('div');
+    addButton.className = 'color-row add-category';
+    addButton.innerHTML = `
+        <div class="color-picker" style="background-color: #FFFFFF;"></div>
+        <div class="color-input">
+            <input type="text" placeholder="Новая категория" id="new-category-name">
+        </div>
+        <div class="category-actions">
+            <button class="button button-small button-fill add-category-btn">+</button>
+        </div>
+    `;
+    container.appendChild(addButton);
+    
+    // Add event listeners
+    addButton.querySelector('.add-category-btn').addEventListener('click', async () => {
+        const nameInput = document.getElementById('new-category-name');
+        const name = nameInput.value.trim();
+        
+        if (name) {
+            await addCategory(name);
+            nameInput.value = ''; // Clear input
+        }
+    });
+    
+    // Add delete buttons to existing categories
+    document.querySelectorAll('.color-row[data-id]').forEach(row => {
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'button button-small button-outline delete-category-btn';
+        deleteBtn.textContent = '×';
+        deleteBtn.style.marginLeft = '10px';
+        
+        deleteBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const categoryId = row.dataset.id;
+            if (confirm('Удалить эту категорию?')) {
+                await deleteCategory(categoryId);
+            }
+        });
+        
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'category-actions';
+        actionsDiv.appendChild(deleteBtn);
+        row.appendChild(actionsDiv);
+    });
 }
