@@ -402,14 +402,7 @@ html, body {
 }
 
 /* try to fix calendar */
-#inline-calendar .calendar-header {
-    margin-top: -15px !important;  
-    padding-top: 8px !important;   
-    padding-bottom: 8px !important;
-}
-
-#inline-calendar .calendar-header {
-    padding-top: 5px !important;  
-    padding-bottom: 5px !important;
-    margin-top: -10px !important;  
+#tab-calendar .page-content .block #inline-calendar .calendar-header {
+    margin-top: -150px !important;
+    padding-top: 5px !important;
 }
