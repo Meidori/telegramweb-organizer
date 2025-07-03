@@ -402,7 +402,19 @@ html, body {
 }
 
 /* try to fix calendar */
-#tab-calendar .page-content .block #inline-calendar .calendar-header {
-    margin-top: -150px !important;
-    padding-top: 5px !important;
+#inline-calendar .calendar {
+    --f7-calendar-header-padding: 5px 0 !important;
+    margin-top: -15px !important;
+}
+
+#inline-calendar .calendar-header {
+    position: relative !important;
+    top: -10px !important;
+    margin-top: -10px !important;
+    padding: 0 !important;
+    min-height: 30px !important;
+}
+
+#inline-calendar .calendar-month-year {
+    transform: translateY(-5px) !important;
 }
