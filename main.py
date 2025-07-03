@@ -248,7 +248,7 @@ def get_year_stats():
                     'days_in_month': row['days_in_month']
                 }
             
-            stats[month - 1] = month_stats  # Индексы месяцев 0-11
+            stats[month - 1] = month_stats 
         
         return jsonify(success=True, stats=stats)
     

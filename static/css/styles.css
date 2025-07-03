@@ -400,3 +400,9 @@ html, body {
     font-weight: bold;
     margin-top: 4px;
 }
+
+/* try to fix calendar */
+#inline-calendar .calendar-header {
+    position: relative !important;
+    top: -15px !important;  
+}
