@@ -403,8 +403,9 @@ html, body {
 
 /* try to fix calendar */
 #inline-calendar .calendar-header {
-    position: relative !important;
-    top: -15px !important;  
+    margin-top: -15px !important;  
+    padding-top: 8px !important;   
+    padding-bottom: 8px !important;
 }
 
 #inline-calendar .calendar-header {
