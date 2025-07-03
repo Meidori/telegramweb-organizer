@@ -209,6 +209,32 @@ html, body {
     background: #3a7bd5;
     border-color: #3a7bd5;
 }
+/* fix year picekr*/
+.flatpickr-calendar {
+    z-index: 10000 !important;
+    width: 100% !important;
+}
+
+.flatpickr-months {
+    position: relative;
+    z-index: 10001;
+}
+
+.flatpickr-current-month {
+    position: relative;
+    z-index: 10002;
+}
+
+.flatpickr-monthDropdown-months, 
+.flatpickr-yearDropdown {
+    z-index: 10003 !important;
+    position: relative;
+    background: white;
+}
+
+.flatpickr-monthDropdown-months {
+    margin-right: 5px;
+}
 
 .event-item {
     padding: 10px;
