@@ -406,3 +406,9 @@ html, body {
     position: relative !important;
     top: -15px !important;  
 }
+
+#inline-calendar .calendar-header {
+    padding-top: 5px !important;  
+    padding-bottom: 5px !important;
+    margin-top: -10px !important;  
+}
