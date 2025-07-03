@@ -239,7 +239,7 @@ body {
 
 .flatpickr-current-month .numInputWrapper {
     position: relative;
-    top: -23px;
+    top: -24px;
     left: 40px;
     display: inline-block !important;
 }
