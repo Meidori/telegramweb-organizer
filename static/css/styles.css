@@ -194,9 +194,6 @@ html, body {
     max-width: 600px;
     margin: 0 auto;
     touch-action: manipulation;
-    min-height: 350px;
-    overflow: visible !important;
-
 }
 
 .flatpickr-calendar {
