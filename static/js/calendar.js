@@ -20,3 +20,23 @@ app.calendar.create({
         }
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const fixHeaderPosition = () => {
+        const header = document.querySelector('#inline-calendar .calendar-header');
+        if (header) {
+            header.style.cssText = `
+                position: relative !important;
+                top: -15px !important;
+                margin-bottom: -15px !important;
+                background: white !important;
+                z-index: 10 !important;
+            `;
+        }
+    };
+    
+    fixHeaderPosition();
+    
+    setTimeout(fixHeaderPosition, 300);
+});
