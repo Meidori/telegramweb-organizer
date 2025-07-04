@@ -283,10 +283,12 @@ body {
 }
 
 .flatpickr-current-month .numInputWrapper {
-    position: relative;
+    position: static;
+    display: flex !important;
+    align-items: center;
+    margin-left: 10px;
     top: -23px;
     left: 40px;
-    display: inline-block !important;
 }
 
 .flatpickr-current-month .numInputWrapper .cur-year {
@@ -301,14 +303,20 @@ body {
 }
 
 .flatpickr-current-month .flatpickr-monthDropdown-months {
-    vertical-align: baseline;
-    margin-right: 15px;
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
 .flatpickr-current-month {
-    top: 9px;
-    padding-top: 8px;
+    position: relative;
+    padding: 0 10px;
     height: 40px !important;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* Category items styling */
