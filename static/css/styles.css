@@ -306,7 +306,7 @@ body {
 }
 
 .flatpickr-current-month {
-    top: 8px;
+    top: 9px;
     padding-top: 8px;
     height: 40px !important;
 }
