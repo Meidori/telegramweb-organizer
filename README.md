@@ -1,4 +1,4 @@
-# Organaizer
+# Organizer
 
 [Deployment guide](https://github.com/Meidori/telegramweb-organizer/tree/master/setup_en) ([на русском](https://github.com/Meidori/telegramweb-organizer/tree/master/setup_ru))
 
