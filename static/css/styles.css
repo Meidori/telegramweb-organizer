@@ -227,8 +227,6 @@ body {
 .delete-category-btn {
     background-color: #f44336;
     color: white;
-    padding: 0 10px;
-    line-height: 28px;
 }
 
 #tab-date-events .page-content {
