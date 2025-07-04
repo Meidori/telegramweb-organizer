@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 from flask_mysqldb import MySQL
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
   
 app = Flask(__name__, template_folder='.', static_folder='static')
 
@@ -323,4 +326,6 @@ def delete_category():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port='80')  
+    app.run(debug=True, host="0.0.0.0", port='80')      # for amvera
+    # app.run(debug=True, host="0.0.0.0", port=5000)    # for own VDS
+
