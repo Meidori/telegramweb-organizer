@@ -299,7 +299,14 @@ body {
 
 .flatpickr-current-month .numInputWrapper .arrowUp,
 .flatpickr-current-month .numInputWrapper .arrowDown {
-    right: 6px;
+    position: absolute;
+    right: 4px;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .flatpickr-current-month .flatpickr-monthDropdown-months {
